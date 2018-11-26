@@ -28,7 +28,7 @@
     </v-content>
     <v-footer class="pa-3" dark>
       <v-spacer></v-spacer>
-    <div>&copy; EEGB | JRBN | JRAS | JLLG | MFGD {{ new Date().getFullYear() }}</div>
+    <div>&copy; EEGB | JRBN | JRAS | JLLG | MFGD | LATT {{ new Date().getFullYear() }}</div>
   </v-footer>
   </v-app>
 </template>
