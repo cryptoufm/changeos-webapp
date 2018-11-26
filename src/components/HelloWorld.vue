@@ -49,12 +49,16 @@
       <v-card>
         <v-card-title class="headline">Stored Image in IPFS:</v-card-title>
 
-        <v-img
-          :src="QmYFXBeBEZ7QHMtuxJKdSa1iU6sViRqEoRYFoeSJegGU82"
+        <v-layout justify-center>
+          <v-img
+          v-bind:src="currentIPFSURL"
           aspect-ratio="1"
           class="grey lighten-2"
-        >
-        </v-img>
+          max-height="250px"
+          max-width="250px"
+          >
+          </v-img>
+        </v-layout>
 
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -93,13 +97,13 @@ export default {
       {
         dpi: "3001973810101",
         vname: "eegod",
-        ipfs: "QmYFXBeBEZ7QHMtuxJKdSa1iU6sViRqEoRYFoeSJegGU82"
+        ipfs: "QmZugW5dB579tqn14nTpndD4vWgKMdyEneT1ShPRUYJTFp"
       }
     ],
     dialog: false,
-    currentIPFSHash: "QmYFXBeBEZ7QHMtuxJKdSa1iU6sViRqEoRYFoeSJegGU82",
+    currentIPFSURL: '',
   }),
-  //QmYFXBeBEZ7QHMtuxJKdSa1iU6sViRqEoRYFoeSJegGU82
+
   methods: {
     getContractData() {
       axios
@@ -108,18 +112,23 @@ export default {
           let contractResponse = response.data.rows;
           let array = []
           for (let element in contractResponse){
-            console.log(contractResponse[element])
-            array.push(contractResponse[element])
+            let dict = {
+              dpi: contractResponse[element]['citizen_uid'],
+              vname: contractResponse[element]['volunteer_id'],
+              ipfs: contractResponse[element]['image_hash']
+            }
+            array.push(dict)
           }
           Vue.set(this.$data, "referendum", array)
-          console.log(this.referendum)
+      
         })
         .catch(error => {
           console.log(error);
         });
     },
     showIPFSImage(row){
-      //Vue.set(this.$data, "currentIPFSHash", row.ipfs)
+      Vue.set(this.$data, "currentIPFSURL", "https://ipfs.io/ipfs/" + row.ipfs)
+      //console.log(this.currentIPFSURL)
       Vue.set(this.$data, "dialog", true);
     }
   }
