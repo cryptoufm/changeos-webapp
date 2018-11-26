@@ -14,6 +14,12 @@
         <span> Changeos</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-avatar size="40px">
+      <img
+        src="./assets/github-light.png"
+        alt="John"
+      >
+      </v-avatar>
       <v-btn
         flat
         href="https://github.com/cryptoufm"

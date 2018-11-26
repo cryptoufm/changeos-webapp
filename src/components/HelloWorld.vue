@@ -37,7 +37,7 @@
           </template>
         </v-data-table>
 
-        <v-btn color="purple darken-2" v-on:click="getContractData()">Refresh</v-btn>
+        <v-btn color="purple darken-2" v-on:click="getContractData()" class="white--text">Refresh</v-btn>
 
         
       </v-flex>
@@ -82,7 +82,7 @@
 
 <script>
 import axios from "axios";
-import Vue from 'vue';
+import Vue from "vue";
 export default {
   data: () => ({
     headers: [
@@ -93,10 +93,9 @@ export default {
       { text: "Volunteer Name", value: "vname" },
       { text: "IPFS Hash", value: "ipfs" }
     ],
-    referendum: [
-    ],
+    referendum: [],
     dialog: false,
-    currentIPFSURL: '',
+    currentIPFSURL: ""
   }),
 
   methods: {
@@ -105,33 +104,32 @@ export default {
         .get("http://35.231.64.75/referendum")
         .then(response => {
           let contractResponse = response.data.rows;
-          let array = []
-          for (let element in contractResponse){
+          let array = [];
+          for (let element in contractResponse) {
             let dict = {
-              dpi: contractResponse[element]['citizen_uid'],
-              vname: contractResponse[element]['volunteer_id'],
-              ipfs: contractResponse[element]['image_hash']
-            }
-            array.push(dict)
+              dpi: contractResponse[element]["citizen_uid"],
+              vname: contractResponse[element]["volunteer_id"],
+              ipfs: contractResponse[element]["image_hash"]
+            };
+            array.push(dict);
           }
-          Vue.set(this.$data, "referendum", array)
-      
+          Vue.set(this.$data, "referendum", array);
         })
         .catch(error => {
           console.log(error);
         });
     },
-    showIPFSImage(row){
-      Vue.set(this.$data, "currentIPFSURL", "https://ipfs.io/ipfs/" + row.ipfs)
+    showIPFSImage(row) {
+      Vue.set(this.$data, "currentIPFSURL", "https://ipfs.io/ipfs/" + row.ipfs);
       //console.log(this.currentIPFSURL)
       Vue.set(this.$data, "dialog", true);
-    },
+    }
   },
   created() {
-      console.log("created");
-      setInterval(() => {
-          this.getContractData()
-      }, 300000)
+    console.log("created");
+    setInterval(() => {
+      this.getContractData();
+    }, 600000);
   }
 };
 </script>
