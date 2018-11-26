@@ -37,7 +37,7 @@
           </template>
         </v-data-table>
 
-        <v-btn color="info" v-on:click="getContractData()">Refresh</v-btn>
+        <v-btn color="purple darken-2" v-on:click="getContractData()">Refresh</v-btn>
 
         
       </v-flex>
@@ -94,11 +94,6 @@ export default {
       { text: "IPFS Hash", value: "ipfs" }
     ],
     referendum: [
-      {
-        dpi: "3001973810101",
-        vname: "eegod",
-        ipfs: "QmZugW5dB579tqn14nTpndD4vWgKMdyEneT1ShPRUYJTFp"
-      }
     ],
     dialog: false,
     currentIPFSURL: '',
@@ -130,7 +125,13 @@ export default {
       Vue.set(this.$data, "currentIPFSURL", "https://ipfs.io/ipfs/" + row.ipfs)
       //console.log(this.currentIPFSURL)
       Vue.set(this.$data, "dialog", true);
-    }
+    },
+  },
+  created() {
+      console.log("created");
+      setInterval(() => {
+          this.getContractData()
+      }, 300000)
   }
 };
 </script>
